@@ -1,0 +1,1 @@
+// srcs/user/user.model.js

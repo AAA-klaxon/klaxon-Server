@@ -1,0 +1,1 @@
+// srcs/community/community.model.js
