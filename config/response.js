@@ -1,3 +1,4 @@
+// config/response.js
 export const response = ({isSuccess, code, message}, result) => {
     return {
         isSuccess: isSuccess,
