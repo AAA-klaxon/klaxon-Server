@@ -8,6 +8,6 @@ router.post('/signup', signup);
 router.get('/info', getUserInfo);
 router.patch('/info/nickname', updateNickname);
 router.delete('/', deleteUser);
-router.get('/notice', getNotices);
+// router.get('/notice', getNotices);
 
 export default router;

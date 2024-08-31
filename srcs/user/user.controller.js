@@ -132,7 +132,7 @@ export async function deleteUser(req, res) {
     return res.status(400).json(response({
       isSuccess: false,
       code: 400,
-      message: 'user-id가 필요합니다.',
+      message: 'user_id가 필요합니다.',
     }));
   }
 
@@ -153,20 +153,20 @@ export async function deleteUser(req, res) {
   }
 }
 
-export async function getNotices(req, res) {
-  try {
-    const notices = await UserService.getNotices();
-    res.status(200).json(response({
-      isSuccess: true,
-      code: 200,
-      message: '공지사항 조회 성공',
-    }, notices));
-  } catch (error) {
-    console.error('공지사항 조회 중 오류 발생:', error);
-    res.status(500).json(response({
-      isSuccess: false,
-      code: 500,
-      message: '서버 오류가 발생했습니다.',
-    }));
-  }
-}
+// export async function getNotices(req, res) {
+//   try {
+//     const notices = await UserService.getNotices();
+//     res.status(200).json(response({
+//       isSuccess: true,
+//       code: 200,
+//       message: '공지사항 조회 성공',
+//     }, notices));
+//   } catch (error) {
+//     console.error('공지사항 조회 중 오류 발생:', error);
+//     res.status(500).json(response({
+//       isSuccess: false,
+//       code: 500,
+//       message: '서버 오류가 발생했습니다.',
+//     }));
+//   }
+// }

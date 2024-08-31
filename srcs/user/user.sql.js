@@ -41,7 +41,7 @@ export const DELETE_USER_QUERY = `
   WHERE user_id = ?
 `;
 
-export const GET_NOTICES_QUERY = `
-  SELECT notice_id AS id, date, title, text
-  FROM NOTICE
-`;
+// export const GET_NOTICES_QUERY = `
+//   SELECT notice_id AS id, date, title, text
+//   FROM NOTICE
+// `;

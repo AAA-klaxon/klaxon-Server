@@ -8,7 +8,6 @@ import {
   getUserByPassword,
   updateUserNickname,  
   deleteUser as deleteUserInModel,
-  getNotices as getNoticesInModel
 } from './user.model.js';
 
 export async function createUser(userDTO) {
@@ -63,12 +62,12 @@ export async function deleteUser(userId) {
   return deleteUserInModel(userId);
 }
 
-export async function getNotices() {
-  try {
-    const notices = await getNoticesInModel();
-    return notices;
-  } catch (error) {
-    console.error('공지사항 조회 중 오류 발생:', error);
-    throw error; 
-  }
-}
+// export async function getNotices() {
+//   try {
+//     const notices = await getNoticesInModel();
+//     return notices;
+//   } catch (error) {
+//     console.error('공지사항 조회 중 오류 발생:', error);
+//     throw error; 
+//   }
+// }

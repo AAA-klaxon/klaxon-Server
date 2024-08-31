@@ -53,15 +53,15 @@ async function deleteUser(userId) {
   return result;
 }
 
-async function getNotices() {
-  try {
-    const [rows] = await pool.query(GET_NOTICES_QUERY);
-    return rows;
-  } catch (error) {
-    console.error('공지사항 조회 중 오류 발생:', error);
-    throw error; // 오류를 상위 호출자로 전파
-  }
-}
+// async function getNotices() {
+//   try {
+//     const [rows] = await pool.query(GET_NOTICES_QUERY);
+//     return rows;
+//   } catch (error) {
+//     console.error('공지사항 조회 중 오류 발생:', error);
+//     throw error;
+//   }
+// }
 
 
 export { 
@@ -73,5 +73,4 @@ export {
   getUserByPassword,
   updateUserNickname,
   deleteUser,
-  getNotices
 };
