@@ -9,7 +9,6 @@ import {
   GET_USER_BY_PASSWORD_QUERY,
   UPDATE_USER_NICKNAME_QUERY,
   DELETE_USER_QUERY,
-  GET_NOTICES_QUERY
 } from './user.sql.js';
 
 async function getUserByEmail(email) {
