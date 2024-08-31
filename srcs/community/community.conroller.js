@@ -1,1 +1,0 @@
-// srcs/community/community.controller.js
