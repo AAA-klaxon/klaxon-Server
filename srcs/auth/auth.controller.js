@@ -1,5 +1,12 @@
+// srcs/auth/auth.controller.js
 import * as AuthService from './auth.service.js';
 import { response } from '../../config/response.js';
+import { 
+    authResponseDTO, 
+    tokenRefreshResponseDTO, 
+    authErrorResponseDTO, 
+    tokenRefreshErrorResponseDTO 
+} from './auth.dto.js';
 
 export async function signup(req, res) {
     try {
@@ -63,9 +70,8 @@ export async function login(req, res) {
             res.status(200).json(response({
                 isSuccess: true,
                 code: 200,
-                message: '로그인 성공'}
-                , { refreshToken }  // 리프레시 토큰을 응답 본문에 포함
-            ));
+                message: '로그인 성공'
+            }, authResponseDTO(refreshToken)));
         } catch (error) {
             return res.status(401).json(response({
                 isSuccess: false,
@@ -104,8 +110,8 @@ export async function refresh(req, res) {
             res.status(200).json(response({
                 isSuccess: true,
                 code: 200,
-                message: '토큰 갱신 성공',
-            }, { newRefreshToken }));
+                message: '토큰 갱신 성공'
+            }, tokenRefreshResponseDTO(newRefreshToken)));
         } catch (error) {
             return res.status(401).json(response({
                 isSuccess: false,
