@@ -1,15 +1,17 @@
 // srcs/user/user.dto.js
-class UserDTO {
-  constructor(email, password, nickname, car_number) {
-    this.email = email;
-    this.password = password;
-    this.nickname = nickname;
-    this.car_number = car_number;
-  }
 
-  static fromRequestBody(body) {
-    return new UserDTO(body.email, body.password, body.nickname, body.car_number);
-  }
-}
+export const userInfoDTO = (userInfo) => ({
+  user_id: userInfo.user_id,
+  email: userInfo.email,
+  nickname: userInfo.nickname,
+  car_number: userInfo.car_number,
+});
 
-export default UserDTO;
+export const updateNicknameResponseDTO = (user) => ({
+  user_id: user.user_id,
+  nickname: user.nickname
+});
+
+export const errorDTO = (message) => ({
+  message
+});

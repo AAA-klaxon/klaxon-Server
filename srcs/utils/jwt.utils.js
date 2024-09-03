@@ -9,9 +9,9 @@ const extractTokenFromHeader = (req) => {
     return authHeader.split(' ')[1];
 };
 
-function generateTokens(userId, email, carNumber) {
-    const accessToken = jwt.sign({ userId, email, carNumber }, process.env.JWT_SECRET, { expiresIn: '7d' });
-    const refreshToken = jwt.sign({ userId, email, carNumber }, process.env.JWT_REFRESH_SECRET, { expiresIn: '30d' });
+function generateTokens(user_id, email, carNumber) {
+    const accessToken = jwt.sign({ user_id, email, carNumber }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    const refreshToken = jwt.sign({ user_id, email, carNumber }, process.env.JWT_REFRESH_SECRET, { expiresIn: '30d' });
 
     return { accessToken, refreshToken };
 }

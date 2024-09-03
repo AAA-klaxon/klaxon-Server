@@ -71,20 +71,6 @@ export async function refreshToken(refreshToken) {
 }
 
 
-export async function invalidateToken(refreshToken) {
-    const user = await AuthModel.getUserByRefreshToken(refreshToken);
-    if (user) {
-        await AuthModel.deleteUserRefreshToken(user.user_id);
-        // 토큰 삭제 확인
-        const updatedUser = await AuthModel.getUserByRefreshToken(refreshToken);
-        if (updatedUser) {
-            throw new Error('리프레시 토큰 무효화 실패');
-        }
-    } else {
-        throw new Error('리프레시 토큰이 유효하지 않습니다.');
-    }
-}
-
 
 
 

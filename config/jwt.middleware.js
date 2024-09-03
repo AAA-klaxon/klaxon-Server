@@ -6,6 +6,7 @@ const { JWT_SECRET } = process.env;
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
+  console.log('Authorization Header:', authHeader);
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json(
@@ -32,8 +33,7 @@ const authenticateToken = (req, res, next) => {
         .json(response({ isSuccess: false, code: 401, message }, {}));
     }
 
-    req.userId = decoded.id;
-    console.log("Authenticated userId:", req.userId);
+    req.user_id = decoded.user_id;
     next();
   });
 };

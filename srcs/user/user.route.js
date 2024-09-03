@@ -1,12 +1,15 @@
 // srcs/user/user.route.js
 import { Router } from 'express';
-import { getUserInfo, updateNickname, deleteUser } from './user.controller.js';
+import { getUserInfo, updateNickname, deleteUser, logout } from './user.controller.js';
+import authenticateToken from '../../config/jwt.middleware.js';
 
 const router = Router();
 
-router.get('/info', getUserInfo);
+router.use(authenticateToken);
+
+router.post('/info', getUserInfo);
 router.patch('/info/nickname', updateNickname);
 router.delete('/', deleteUser);
-// router.get('/notice', getNotices);
+router.post('/logout', logout);
 
 export default router;

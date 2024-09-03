@@ -44,7 +44,7 @@ export async function signup(req, res) {
         res.status(500).json(response({
             isSuccess: false,
             code: 500,
-            message: '서버 오류가 발생했습니다.',
+            ...authErrorResponseDTO('서버 오류가 발생했습니다.'),
         }));
     }
 }
@@ -76,7 +76,7 @@ export async function login(req, res) {
             return res.status(401).json(response({
                 isSuccess: false,
                 code: 401,
-                message: error.message,
+                ...authErrorResponseDTO(error.message),
             }));
         }
     } catch (error) {
@@ -84,7 +84,7 @@ export async function login(req, res) {
         res.status(500).json(response({
             isSuccess: false,
             code: 500,
-            message: '서버 오류가 발생했습니다.',
+            ...authErrorResponseDTO('서버 오류가 발생했습니다.'),
         }));
     }
 }
@@ -116,7 +116,7 @@ export async function refresh(req, res) {
             return res.status(401).json(response({
                 isSuccess: false,
                 code: 401,
-                message: error.message,
+                ...tokenRefreshErrorResponseDTO(error.message),
             }));
         }
     } catch (error) {
@@ -124,43 +124,7 @@ export async function refresh(req, res) {
         res.status(500).json(response({
             isSuccess: false,
             code: 500,
-            message: '서버 오류가 발생했습니다.',
-        }));
-    }
-}
-
-export async function logout(req, res) {
-    try {
-        const { refreshToken } = req.body;
-
-        if (!refreshToken) {
-            return res.status(400).json(response({
-                isSuccess: false,
-                code: 400,
-                message: '리프레시 토큰이 필요합니다.',
-            }));
-        }
-
-        try {
-            await AuthService.invalidateToken(refreshToken);
-            res.status(200).json(response({
-                isSuccess: true,
-                code: 200,
-                message: '로그아웃 성공',
-            }));
-        } catch (error) {
-            return res.status(401).json(response({
-                isSuccess: false,
-                code: 401,
-                message: error.message,
-            }));
-        }
-    } catch (error) {
-        console.error('로그아웃 중 오류 발생:', error);
-        res.status(500).json(response({
-            isSuccess: false,
-            code: 500,
-            message: '서버 오류가 발생했습니다.',
+            ...tokenRefreshErrorResponseDTO('서버 오류가 발생했습니다.'),
         }));
     }
 }
