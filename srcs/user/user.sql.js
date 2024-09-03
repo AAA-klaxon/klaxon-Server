@@ -1,6 +1,6 @@
 // srcs/user/user.sql.js
 export const GET_USER_INFO_QUERY = `
-  SELECT user_id AS id, nickname, car_number , email
+  SELECT user_id, nickname, car_number, email, refreshtoken
   FROM USER 
   WHERE user_id = ?
 `;
@@ -16,7 +16,14 @@ export const DELETE_USER_QUERY = `
   WHERE user_id = ?
 `;
 
-// export const GET_NOTICES_QUERY = `
-//   SELECT notice_id AS id, date, title, text
-//   FROM NOTICE
-// `;
+export const DELETE_USER_REFRESH_TOKEN_QUERY = `
+  UPDATE USER 
+  SET refreshtoken = NULL 
+  WHERE user_id = ?
+`;
+
+export const GET_USER_BY_REFRESH_TOKEN_QUERY = `
+  SELECT * 
+  FROM USER 
+  WHERE refreshtoken = ?
+`;
