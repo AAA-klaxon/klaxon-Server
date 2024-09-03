@@ -2,50 +2,6 @@
 import * as UserService from './user.service.js';
 import { response } from '../../config/response.js';
 
-export async function signup(req, res) {
-  try {
-    const { email, password, nickname, car_number } = req.body;
-
-    if (!email || !password || !nickname || !car_number) {
-      return res.status(400).json(response(
-        {
-        isSuccess: false,
-        code: 400,
-        message: '모든 필드가 필요합니다.',      
-      }
-    ));
-    }
-
-    try {
-      const newUser = await UserService.createUser({ email, password, nickname, car_number });
-      res.status(201).json(response({
-        isSuccess: true,
-        code: 201,
-        message: '사용자가 성공적으로 가입되었습니다.',
-      } ));
-    } catch (error) {
-      if (error.message.includes('이미 등록된 이메일') || 
-          error.message.includes('이미 등록된 차량 번호') ||
-          error.message.includes('이미 등록된 닉네임')) {
-        return res.status(409).json(response({
-          isSuccess: false,
-          code: 409,
-          message: error.message,
-          result: {} 
-        }));
-      }
-      throw error; // 다른 에러는 다시 던져서 아래의 catch 블록에서 처리
-    }
-  } catch (error) {
-    console.error('가입 중 오류 발생:', error);
-    res.status(500).json(response({
-      isSuccess: false,
-      code: 500,
-      message: '서버 오류가 발생했습니다.',
-    }));
-  }
-}
-
 export async function getUserInfo(req, res) {
   try {
     const { user_id } = req.query;

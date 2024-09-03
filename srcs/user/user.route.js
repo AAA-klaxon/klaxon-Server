@@ -1,10 +1,9 @@
 // srcs/user/user.route.js
 import { Router } from 'express';
-import { signup, getUserInfo, updateNickname, deleteUser } from './user.controller.js';
+import { getUserInfo, updateNickname, deleteUser } from './user.controller.js';
 
 const router = Router();
 
-router.post('/signup', signup);
 router.get('/info', getUserInfo);
 router.patch('/info/nickname', updateNickname);
 router.delete('/', deleteUser);
