@@ -9,7 +9,7 @@ router.use(authenticateToken);
 
 router.post('/info', getUserInfo);
 router.patch('/info/nickname', updateNickname);
-router.delete('/', deleteUser);
+router.post('/delete', deleteUser);
 router.post('/logout', logout);
 
 export default router;

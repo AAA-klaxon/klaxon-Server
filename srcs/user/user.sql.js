@@ -12,7 +12,8 @@ export const UPDATE_USER_NICKNAME_QUERY = `
 `;
 
 export const DELETE_USER_QUERY = `
-  DELETE FROM USER
+  UPDATE USER
+  SET status = 'inactive', nickname = '탈퇴한 사용자', refreshtoken = NULL 
   WHERE user_id = ?
 `;
 

@@ -11,7 +11,7 @@ import {
 } from './community.sql.js';
 
 // 게시글 리스트 조회
-export async function getPosts(userId) {
+export async function getPosts() {
   const [rows] = await pool.query(GET_POSTS_QUERY);
   return rows;
 }
@@ -23,7 +23,7 @@ export async function createPost(userId, title, main_text) {
 }
 
 // 게시글 조회
-export async function getPost(postId, userId) {
+export async function getPost(postId) {
   const [rows] = await pool.query(GET_POST_QUERY, [postId]);
   return rows[0];
 }
@@ -35,15 +35,9 @@ export async function createComment(postId, userId, text) {
 }
 
 // 특정 게시물의 모든 댓글 조회
-export async function getComments(postId, userId) {
-  const [rows] = await pool.query('SELECT * FROM COMMENT WHERE post_id = ? ORDER BY created_at DESC', [postId]);
+export async function getComments(postId) {
+  const [rows] = await pool.query(GET_COMMENT_QUERY, [postId]);
   return rows;
-}
-
-// 특정 댓글 조회
-export async function getComment(postId, commentId) {
-  const [rows] = await pool.query('SELECT * FROM COMMENT WHERE post_id = ? AND comment_id = ?', [postId, commentId]);
-  return rows[0];
 }
 
 // 게시물 좋아요 추가
