@@ -1,6 +1,16 @@
 // srcs/community/community.sql.js
 export const GET_POSTS_QUERY = `
-  SELECT * FROM POST ORDER BY created_at DESC
+  SELECT 
+    post_id, 
+    user_id, 
+    title, 
+    main_text, 
+    created_at,
+    (SELECT nickname FROM USER WHERE USER.user_id = POST.user_id) AS nickname, -- 변경된 필드 이름
+    (SELECT COUNT(*) FROM POST_LIKES WHERE post_id = POST.post_id) AS like_count,
+    (SELECT COUNT(*) FROM COMMENT WHERE post_id = POST.post_id) AS comment_count
+  FROM POST
+  ORDER BY created_at DESC
 `;
 
 export const CREATE_POST_QUERY = `
@@ -9,7 +19,17 @@ export const CREATE_POST_QUERY = `
 `;
 
 export const GET_POST_QUERY = `
-  SELECT * FROM POST WHERE post_id = ?
+  SELECT 
+    post_id, 
+    user_id, 
+    title, 
+    main_text, 
+    created_at,
+    (SELECT nickname FROM USER WHERE USER.user_id = POST.user_id) AS nickname, -- 변경된 필드 이름
+    (SELECT COUNT(*) FROM POST_LIKES WHERE post_id = POST.post_id) AS like_count,
+    (SELECT COUNT(*) FROM COMMENT WHERE post_id = POST.post_id) AS comment_count
+  FROM POST
+  WHERE post_id = ?
 `;
 
 export const CREATE_COMMENT_QUERY = `

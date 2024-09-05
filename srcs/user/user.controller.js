@@ -115,6 +115,7 @@ export async function deleteUser(req, res) {
   }
 }
 
+
 // srcs/user/user.controller.js
 export async function logout(req, res) {
   const user_id = req.user_id;
