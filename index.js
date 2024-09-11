@@ -21,5 +21,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, '0.0.0.0', () => {
-  console.log(`서버가 http://0.0.0.0:${port}에서 실행 중입니다.`);
+  console.log(`서버가 http://localhost:${port}에서 실행 중입니다.`);
 });
