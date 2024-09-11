@@ -16,7 +16,8 @@ app.use('/users', userRoutes);
 app.use('/community', communityRoutes);
 app.use('/errors', errorRoutes);
 
-app.listen(port, () => {
-  console.log(`서버가 http://localhost:${port}에서 실행 중입니다.`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`서버가 http://0.0.0.0:${port}에서 실행 중입니다.`);
 });
+
 
