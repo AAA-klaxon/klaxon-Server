@@ -37,9 +37,13 @@ export async function getComments(postId, userId) {
 // 게시물 좋아요
 export async function likePost(postId, userId) {
   await communityModel.addLike(postId, userId);
+  const likeCount = await communityModel.getLikeCount(postId); // 추가: 좋아요 수 조회
+  return new LikeResponseDTO(likeCount); // DTO 반환
 }
 
 // 게시물 좋아요 취소
 export async function unlikePost(postId, userId) {
   await communityModel.removeLike(postId, userId);
+  const likeCount = await communityModel.getLikeCount(postId); // 추가: 좋아요 수 조회
+  return new LikeResponseDTO(likeCount); // DTO 반환
 }

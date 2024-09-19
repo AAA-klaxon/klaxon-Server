@@ -31,7 +31,15 @@ export class CommentDTO {
     this.comment_id = comment.comment_id;
     this.post_id = comment.post_id;
     this.user_id = comment.user_id;
+    this.nickname = comment.nickname;
     this.text = comment.text;
     this.createdAt = comment.created_at;
+  }
+}
+
+// 게시물 좋아요 응답 DTO
+export class LikeResponseDTO {
+  constructor(likeCount) {
+    this.like_count = likeCount;
   }
 }

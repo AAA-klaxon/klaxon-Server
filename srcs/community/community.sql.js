@@ -38,9 +38,18 @@ export const CREATE_COMMENT_QUERY = `
 `;
 
 export const GET_COMMENT_QUERY = `  
-  SELECT * FROM COMMENT WHERE post_id = ? ORDER BY created_at DESC;
-
+  SELECT 
+    comment.comment_id, 
+    comment.post_id, 
+    comment.user_id, 
+    comment.text, 
+    comment.created_at,
+    (SELECT nickname FROM USER WHERE USER.user_id = comment.user_id) AS nickname -- Join to get nickname
+  FROM COMMENT AS comment
+  WHERE post_id = ? 
+  ORDER BY created_at DESC;
 `;
+
 
 export const ADD_LIKE_QUERY = `
   INSERT INTO POST_LIKES (post_id, user_id, created_at)

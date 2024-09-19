@@ -49,3 +49,9 @@ export async function addLike(postId, userId) {
 export async function removeLike(postId, userId) {
   await pool.query(REMOVE_LIKE_QUERY, [postId, userId]);
 }
+
+// 게시물 좋아요 수 조회
+export async function getLikeCount(postId) {
+  const [rows] = await pool.query('SELECT COUNT(*) AS like_count FROM POST_LIKES WHERE post_id = ?', [postId]);
+  return rows[0].like_count;
+}

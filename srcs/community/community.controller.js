@@ -1,5 +1,4 @@
 // srcs/community/community.controller.js
-// srcs/community/community.controller.js
 import * as communityService from './community.service.js';
 import { response } from '../../config/response.js';
 
@@ -59,8 +58,8 @@ export async function getComments(req, res) {
 // 게시물 좋아요
 export async function likePost(req, res) {
   try {
-    await communityService.likePost(req.params.postId, req.user_id);
-    res.status(201).json(response({ isSuccess: true, code: 201, message: '게시물에 좋아요를 추가했습니다.' }));
+    const likeResponse = await communityService.likePost(req.params.postId, req.user_id);
+    res.status(201).json(response({ isSuccess: true, code: 201, message: '게시물에 좋아요를 추가했습니다.' }, likeResponse));
   } catch (error) {
     res.status(400).json(response({ isSuccess: false, code: 400, message: '게시물 좋아요 중 오류가 발생했습니다.' }));
   }
@@ -69,9 +68,10 @@ export async function likePost(req, res) {
 // 게시물 좋아요 취소
 export async function unlikePost(req, res) {
   try {
-    await communityService.unlikePost(req.params.postId, req.user_id);
-    res.status(200).json(response({ isSuccess: true, code: 200, message: '게시물 좋아요가 취소되었습니다.' }));
+    const likeResponse = await communityService.unlikePost(req.params.postId, req.user_id);
+    res.status(200).json(response({ isSuccess: true, code: 200, message: '게시물 좋아요가 취소되었습니다.' }, likeResponse));
   } catch (error) {
     res.status(400).json(response({ isSuccess: false, code: 400, message: '게시물 좋아요 취소 중 오류가 발생했습니다.' }));
   }
 }
+
