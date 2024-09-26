@@ -45,10 +45,18 @@ app.use('/users', userRoutes);
 app.use('/community', communityRoutes);
 app.use('/errors', errorRoutes);
 
-// '/result' 경로에 대한 처리
 app.get('/result', (req, res) => {
-  res.sendFile(path.join(process.cwd(), 'srcs', 'public', 'index.html'));
+  const filePath = path.join(process.cwd(), 'srcs', 'public', 'index.html');
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      console.error('파일 전송 중 오류 발생:', err);
+      res.status(err.status).end();
+    } else {
+      console.log('파일 전송 완료:', filePath);
+    }
+  });
 });
+
 
 // 서버 시작
 server.listen(port, '0.0.0.0', () => {
