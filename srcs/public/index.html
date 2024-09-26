@@ -4,24 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>오인식 표지판 정보</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column; /* 세로 방향으로 정렬 */
+            justify-content: center; /* 수평 중앙 정렬 */
+            align-items: center;    /* 수직 중앙 정렬 */
+            height: 100vh;         /* 화면 전체 높이 사용 */
+            margin: 0;             /* 기본 여백 제거 */
+            text-align: center;     /* 텍스트 중앙 정렬 */
+            font-family: Arial, sans-serif; /* 기본 글꼴 설정 */
+        }
+
+        h1 {
+            font-size: 45px; /* 제목 글씨 크기 */
+            margin-bottom: 20px; /* 제목과 내용 사이 여백 */
+        }
+
+        #displayArea {
+            margin-top: 20px;      /* 이미지와 텍스트 사이 여백 */
+        }
+
+        img {
+            width: 500px;          /* 이미지 너비 */
+            height: auto;          /* 비율 유지 */
+        }
+    </style>
     <script>
         const websocket = new WebSocket('ws://localhost:3000');
 
         websocket.onopen = function() {
             console.log('웹소켓이 연결되었습니다.');
+            // 기본 이미지 설정
+            const displayArea = document.getElementById('displayArea');
+            displayArea.innerHTML = ''; // 이전 내용을 지우기
+
+            const img = document.createElement('img');
+            img.src = 'images/default.jpg'; // 기본 이미지 설정
+            img.alt = '기본 이미지'; // 이미지 설명 설정
+            displayArea.appendChild(img); // 이미지 추가
         };
 
         websocket.onmessage = function(event) {
             const notification = JSON.parse(event.data);
+            console.log('수신한 메시지:', notification);
             
             if (notification.message === "새로운 오인식된 표지판 정보가 등록되었습니다.") {
                 const { misrecognized_sign_name, accidentId } = notification.data;
+
+                // 기존 내용을 지우고 새로운 정보만 표시
+                const displayArea = document.getElementById('displayArea');
+                displayArea.innerHTML = ''; // 이전 내용을 지우기
+
+                // 새로운 정보와 이미지를 담을 div 생성
+                const infoContainer = document.createElement('div');
+
+                // 이미지 추가
+                const img = document.createElement('img');
                 
-                // HTML 요소에 정보 추가
-                const displayArea = document.getElementById('displayArea'); // 정보를 표시할 HTML 요소
+                // misrecognized_sign_name에 따른 이미지 설정
+                switch (misrecognized_sign_name) {
+                    case 'notEnter':
+                        img.src = 'images/notEnter.png';
+                        break;
+                    case 'right':
+                        img.src = 'images/right.png';
+                        break;
+                    case 'slow':
+                        img.src = 'images/slow.png';
+                        break;
+                    case 'notLeft':
+                        img.src = 'images/notLeft.png';
+                        break;
+                    default:
+                        img.src = 'images/default.jpg'; // 기본 이미지 (선택 사항)
+                        break;
+                }
+
+                img.alt = misrecognized_sign_name; // 이미지 설명 설정
+                infoContainer.appendChild(img); // 이미지 추가
+                
+                // 텍스트 추가
                 const newInfo = document.createElement('div');
-                newInfo.innerHTML = `오인식된 표지판: ${misrecognized_sign_name}, 사고 ID: ${accidentId}`;
-                displayArea.appendChild(newInfo);
+                infoContainer.appendChild(newInfo); // 텍스트 추가
+                
+                // displayArea에 추가
+                displayArea.appendChild(infoContainer);
             }
         };
 
