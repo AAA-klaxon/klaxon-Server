@@ -1,6 +1,7 @@
 import * as ErrorsService from './error.service.js';
 import { response } from '../../config/response.js';
 import { errorDTO } from './error.dto.js';
+import { sendToClients } from '../../index.js'; // 경로 조정 필요
 
 export async function postErrorInfo(req, res) {
     try {
@@ -16,11 +17,20 @@ export async function postErrorInfo(req, res) {
 
         const accidentId = await ErrorsService.saveErrorInfo(misrecognized_sign_name);
 
+        // 클라이언트에 알림 전송
+        sendToClients({
+            message: "새로운 오인식된 표지판 정보가 등록되었습니다.",
+            data: {
+                misrecognized_sign_name,
+                accidentId,
+            },
+        });
+
         res.status(201).json(response({
             isSuccess: true,
             code: 201,
-            message: "사고 정보가 성공적으로 저장되었습니다."}, accidentId
-        ));
+            message: "사고 정보가 성공적으로 저장되었습니다."
+        }, accidentId));
     } catch (error) {
         console.error('사고 정보 저장 중 오류 발생:', error);
         res.status(500).json(response({
