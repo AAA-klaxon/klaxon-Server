@@ -45,10 +45,11 @@ app.use('/users', userRoutes);
 app.use('/community', communityRoutes);
 app.use('/errors', errorRoutes);
 
-// 기본 경로에 대한 처리
-app.get('/', (req, res) => {
-  res.sendFile(path.join(process.cwd(), 'srcs', 'public', 'index.html')); // srcs/public에 있는 index.html 제공
+// 기본 경로 '/' 대신 '/result'로 변경
+app.get('/result', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'srcs', 'public', 'index.html')); 
 });
+
 
 // 서버 시작
 server.listen(port, '0.0.0.0', () => {
