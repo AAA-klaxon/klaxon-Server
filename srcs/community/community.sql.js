@@ -37,18 +37,32 @@ export const CREATE_COMMENT_QUERY = `
   VALUES (?, ?, ?, NOW())
 `;
 
-export const GET_COMMENT_QUERY = `  
+// export const GET_COMMENT_QUERY = `  
+//   SELECT 
+//     comment.comment_id, 
+//     comment.post_id, 
+//     comment.user_id, 
+//     comment.text, 
+//     comment.created_at,
+//     (SELECT nickname FROM USER WHERE USER.user_id = comment.user_id) AS nickname -- Join to get nickname
+//   FROM COMMENT AS comment
+//   WHERE post_id = ? 
+//   ORDER BY created_at DESC;
+// `;
+
+export const GET_COMMENT_QUERY = `
   SELECT 
     comment.comment_id, 
     comment.post_id, 
     comment.user_id, 
     comment.text, 
-    comment.created_at,
-    (SELECT nickname FROM USER WHERE USER.user_id = comment.user_id) AS nickname -- Join to get nickname
+    DATE_FORMAT(comment.created_at, '%Y-%m-%d %H:%i:%s') AS created_at, 
+    (SELECT nickname FROM USER WHERE USER.user_id = comment.user_id) AS nickname
   FROM COMMENT AS comment
   WHERE post_id = ? 
-  ORDER BY created_at DESC;
+  ORDER BY created_at ASC;
 `;
+
 
 
 export const ADD_LIKE_QUERY = `
