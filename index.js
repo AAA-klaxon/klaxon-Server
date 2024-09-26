@@ -7,6 +7,8 @@ import userRoutes from './srcs/user/user.route.js';
 import communityRoutes from './srcs/community/community.route.js';
 import errorRoutes from './srcs/error/error.route.js';
 import path from 'path';
+import cors from 'cors';
+
 
 const app = express();
 const port = 3000;
@@ -36,7 +38,8 @@ export const sendToClients = (data) => {
 };
 
 // 정적 파일 제공
-app.use(express.static(path.join(process.cwd(), 'srcs', 'public', 'index.html')));
+app.use(express.static(path.join(process.cwd(), 'srcs', 'public')));
+app.use(cors());
 
 // API 엔드포인트 설정
 app.use(bodyParser.json());
