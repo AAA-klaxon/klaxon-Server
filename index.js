@@ -46,6 +46,7 @@ app.use('/community', communityRoutes);
 app.use('/errors', errorRoutes);
 
 app.get('/result', (req, res) => {
+  console.log('GET /result 요청 수신');
   const filePath = path.join(process.cwd(), 'srcs', 'public', 'index.html');
   res.sendFile(filePath, (err) => {
     if (err) {
@@ -56,6 +57,7 @@ app.get('/result', (req, res) => {
     }
   });
 });
+
 
 
 // 서버 시작
