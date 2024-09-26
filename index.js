@@ -36,7 +36,7 @@ export const sendToClients = (data) => {
 };
 
 // 정적 파일 제공
-app.use(express.static(path.join(process.cwd(), 'srcs', 'public')));
+app.use(express.static(path.join(process.cwd(), 'srcs', 'public', 'index.html')));
 
 // API 엔드포인트 설정
 app.use(bodyParser.json());
