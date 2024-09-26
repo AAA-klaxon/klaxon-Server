@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import http from 'http';
-import { WebSocketServer, WebSocket } from 'ws'; // WebSocket 추가
+import { WebSocketServer, WebSocket } from 'ws';
 import authRoutes from './srcs/auth/auth.route.js';
 import userRoutes from './srcs/user/user.route.js';
 import communityRoutes from './srcs/community/community.route.js';
@@ -36,7 +36,7 @@ export const sendToClients = (data) => {
 };
 
 // 정적 파일 제공
-app.use(express.static(path.join(process.cwd(), 'srcs', 'public'))); // srcs/public에서 정적 파일 제공
+app.use(express.static(path.join(process.cwd(), 'srcs', 'public')));
 
 // API 엔드포인트 설정
 app.use(bodyParser.json());
@@ -45,13 +45,12 @@ app.use('/users', userRoutes);
 app.use('/community', communityRoutes);
 app.use('/errors', errorRoutes);
 
-// 기본 경로 '/' 대신 '/result'로 변경
+// '/result' 경로에 대한 처리
 app.get('/result', (req, res) => {
-  res.sendFile(path.join(process.cwd(), 'srcs', 'public', 'index.html')); 
+  res.sendFile(path.join(process.cwd(), 'srcs', 'public', 'index.html'));
 });
-
 
 // 서버 시작
 server.listen(port, '0.0.0.0', () => {
-  console.log(`서버가 http://localhost:${port}에서 실행 중입니다.`);
+  console.log(`서버가 http://43.202.104.135:${port}/result 에서 실행 중입니다.`);
 });
