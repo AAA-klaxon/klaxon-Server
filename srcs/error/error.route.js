@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import { getTopErrorProneSigns } from './error.controller.js';
+import { postErrorInfo, getHighMisrecognitionSigns } from './error.controller.js';
+import authenticateToken from '../../config/jwt.middleware.js';
 
 const router = Router();
 
-router.get('/', getTopErrorProneSigns);
+router.post('/info', postErrorInfo);
+router.get('/traffic', authenticateToken, getHighMisrecognitionSigns); // GET 요청 추가
 
 export default router;

@@ -1,18 +1,9 @@
-import { getAverageErrorPercentageBySign, getSignDetailsByIds } from './error.model.js';
+import { insertErrorInfo, getHighMisrecognitionSigns as fetchHighMisrecognitionSigns } from './error.model.js';
 
-export async function getTopErrorProneSigns() {
-  try {
-    const averageErrorPercentages = await getAverageErrorPercentageBySign();
-    const topSignsIds = averageErrorPercentages.map(sign => sign.id);
+export async function saveErrorInfo(misrecognized_sign_name) {
+    return await insertErrorInfo(misrecognized_sign_name);
+}
 
-    if (topSignsIds.length === 0) {
-      throw new Error('오인식 비율이 높은 표지판이 없습니다.');
-    }
-
-    const signDetails = await getSignDetailsByIds(topSignsIds);
-    return signDetails;
-  } catch (error) {
-    console.error('오인식 비율이 높은 표지판 조회 중 오류 발생:', error);
-    throw error;
-  }
+export async function getHighMisrecognitionSigns() {
+    return await fetchHighMisrecognitionSigns(); // 중복된 이름을 피하기 위해 alias 사용
 }
