@@ -5,23 +5,24 @@ import { sendToClients } from '../../index.js'; // 경로 조정 필요
 
 export async function postErrorInfo(req, res) {
     try {
-        const { misrecognized_sign_name } = req.body;
+        const { misrecognized_sign_name, recognized_sign_name } = req.body; // recognized_sign_name 추가
 
-        if (!misrecognized_sign_name) {
+        if (!misrecognized_sign_name || !recognized_sign_name) { // 두 값 모두 체크
             return res.status(400).json(response({
                 isSuccess: false,
                 code: 400,
-                message: 'misrecognized_sign_name이 필요합니다.',
+                message: 'misrecognized_sign_name과 recognized_sign_name이 필요합니다.',
             }));
         }
 
-        const accidentId = await ErrorsService.saveErrorInfo(misrecognized_sign_name);
+        const accidentId = await ErrorsService.saveErrorInfo(misrecognized_sign_name, recognized_sign_name); // recognized_sign_name 추가
 
         // 클라이언트에 알림 전송
         sendToClients({
             message: "새로운 오인식된 표지판 정보가 등록되었습니다.",
             data: {
                 misrecognized_sign_name,
+                recognized_sign_name, // 추가
                 accidentId,
             },
         });
@@ -40,6 +41,7 @@ export async function postErrorInfo(req, res) {
         }, errorDTO('서버 오류가 발생했습니다.')));
     }
 }
+
 
 export async function getHighMisrecognitionSigns(req, res) {
     try {
