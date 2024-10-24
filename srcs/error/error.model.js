@@ -9,11 +9,15 @@ export async function getHighMisrecognitionSigns() {
     const [rows] = await pool.query(GET_HIGH_MISRECOGNITION_SIGNS_QUERY);
     
     const result = rows.map(row => {
-        const misrecognition_rate = Math.round((row.misrecognition_count / row.recognized_count) * 100);
+        const recognizedCount = Number(row.recognized_count); // recognized_count를 숫자로 변환
+        const misrecognitionCount = Number(row.misrecognition_count); // misrecognition_count를 숫자로 변환
+        
+        const misrecognition_rate = Math.round((misrecognitionCount / recognizedCount) * 100);
+        
         return {
             recognized_sign_name: row.recognized_sign_name,
-            recognized_count: row.recognized_count,
-            misrecognition_count: row.misrecognition_count,
+            recognized_count: recognizedCount,
+            misrecognition_count: misrecognitionCount, // int로 변환
             misrecognition_rate: `${misrecognition_rate}%` // 백분율로 변환
         };
     });
