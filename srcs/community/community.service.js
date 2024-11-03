@@ -1,6 +1,6 @@
 // srcs/community/community.service.js
 import * as communityModel from './community.model.js';
-import { getPostDTO, writePostDTO, CommentDTO } from './community.dto.js';
+import { getPostDTO, writePostDTO, CommentDTO, LikeResponseDTO } from './community.dto.js';
 
 // 게시글 리스트 조회
 export async function listPosts(userId) {
@@ -34,18 +34,20 @@ export async function getComments(postId, userId) {
   return comments.map(comment => new CommentDTO(comment));
 }
 
-// 게시물 좋아요
+
 export async function likePost(postId, userId) {
   try {
-    console.log("Adding like to post:", postId, "by user:", userId); // 로그 추가
+    console.log("Attempting to like post:", postId, "User ID:", userId);
     await communityModel.addLike(postId, userId);
     const likeCount = await communityModel.getLikeCount(postId);
-    console.log("Updated like count:", likeCount); // 로그 추가
+    console.log("Updated like count after like:", likeCount);
     return new LikeResponseDTO(likeCount);
   } catch (error) {
-    console.error("Error in service likePost:", error); // 로그 추가
+    console.error("Error in likePost function:", error.message);
     throw error;
-  }
+
+}
+
 }
 
 // 게시물 좋아요 취소
