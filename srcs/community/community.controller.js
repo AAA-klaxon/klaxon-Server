@@ -58,9 +58,11 @@ export async function getComments(req, res) {
 // 게시물 좋아요
 export async function likePost(req, res) {
   try {
+    console.log("Liking post:", req.params.postId, "User ID:", req.user_id); // 로그 추가
     const likeResponse = await communityService.likePost(req.params.postId, req.user_id);
     res.status(201).json(response({ isSuccess: true, code: 201, message: '게시물에 좋아요를 추가했습니다.' }, likeResponse));
   } catch (error) {
+    console.error("Error liking post:", error); // 로그 추가
     res.status(400).json(response({ isSuccess: false, code: 400, message: '게시물 좋아요 중 오류가 발생했습니다.' }));
   }
 }
@@ -68,10 +70,11 @@ export async function likePost(req, res) {
 // 게시물 좋아요 취소
 export async function unlikePost(req, res) {
   try {
+    console.log("Unliking post:", req.params.postId, "User ID:", req.user_id); // 로그 추가
     const likeResponse = await communityService.unlikePost(req.params.postId, req.user_id);
     res.status(200).json(response({ isSuccess: true, code: 200, message: '게시물 좋아요가 취소되었습니다.' }, likeResponse));
   } catch (error) {
+    console.error("Error unliking post:", error); // 로그 추가
     res.status(400).json(response({ isSuccess: false, code: 400, message: '게시물 좋아요 취소 중 오류가 발생했습니다.' }));
   }
 }
-

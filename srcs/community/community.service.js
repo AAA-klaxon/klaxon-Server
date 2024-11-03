@@ -36,14 +36,28 @@ export async function getComments(postId, userId) {
 
 // 게시물 좋아요
 export async function likePost(postId, userId) {
-  await communityModel.addLike(postId, userId);
-  const likeCount = await communityModel.getLikeCount(postId); // 추가: 좋아요 수 조회
-  return new LikeResponseDTO(likeCount); // DTO 반환
+  try {
+    console.log("Adding like to post:", postId, "by user:", userId); // 로그 추가
+    await communityModel.addLike(postId, userId);
+    const likeCount = await communityModel.getLikeCount(postId);
+    console.log("Updated like count:", likeCount); // 로그 추가
+    return new LikeResponseDTO(likeCount);
+  } catch (error) {
+    console.error("Error in service likePost:", error); // 로그 추가
+    throw error;
+  }
 }
 
 // 게시물 좋아요 취소
 export async function unlikePost(postId, userId) {
-  await communityModel.removeLike(postId, userId);
-  const likeCount = await communityModel.getLikeCount(postId); // 추가: 좋아요 수 조회
-  return new LikeResponseDTO(likeCount); // DTO 반환
+  try {
+    console.log("Removing like from post:", postId, "by user:", userId); // 로그 추가
+    await communityModel.removeLike(postId, userId);
+    const likeCount = await communityModel.getLikeCount(postId);
+    console.log("Updated like count after unlike:", likeCount); // 로그 추가
+    return new LikeResponseDTO(likeCount);
+  } catch (error) {
+    console.error("Error in service unlikePost:", error); // 로그 추가
+    throw error;
+  }
 }
