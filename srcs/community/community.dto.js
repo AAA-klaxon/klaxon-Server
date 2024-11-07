@@ -10,8 +10,10 @@ export class getPostDTO {
     this.createdAt = post.created_at;
     this.like_count = post.like_count;
     this.comment_count = post.comment_count;
+    this.isLiked = !!post.isLiked; // isLiked 값을 포함
   }
 }
+
 
 // 게시글 작성 DTO
 export class writePostDTO {

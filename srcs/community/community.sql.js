@@ -8,7 +8,8 @@ export const GET_POSTS_QUERY = `
     DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS created_at,
     (SELECT nickname FROM USER WHERE USER.user_id = POST.user_id) AS nickname, 
     (SELECT COUNT(*) FROM POST_LIKES WHERE post_id = POST.post_id) AS like_count,
-    (SELECT COUNT(*) FROM COMMENT WHERE post_id = POST.post_id) AS comment_count
+    (SELECT COUNT(*) FROM COMMENT WHERE post_id = POST.post_id) AS comment_count,
+    EXISTS (SELECT 1 FROM POST_LIKES WHERE post_id = POST.post_id AND user_id = ?) AS isLiked
   FROM POST
   ORDER BY created_at DESC
 `;
@@ -27,10 +28,12 @@ export const GET_POST_QUERY = `
     DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS created_at,
     (SELECT nickname FROM USER WHERE USER.user_id = POST.user_id) AS nickname, 
     (SELECT COUNT(*) FROM POST_LIKES WHERE post_id = POST.post_id) AS like_count,
-    (SELECT COUNT(*) FROM COMMENT WHERE post_id = POST.post_id) AS comment_count
+    (SELECT COUNT(*) FROM COMMENT WHERE post_id = POST.post_id) AS comment_count,
+    EXISTS (SELECT 1 FROM POST_LIKES WHERE post_id = POST.post_id AND user_id = ?) AS isLiked
   FROM POST
   WHERE post_id = ?
 `;
+
 
 export const CREATE_COMMENT_QUERY = `
   INSERT INTO COMMENT (post_id, user_id, text, created_at)

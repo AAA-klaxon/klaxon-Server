@@ -10,11 +10,12 @@ import {
   REMOVE_LIKE_QUERY
 } from './community.sql.js';
 
-// 게시글 리스트 조회
-export async function getPosts() {
-  const [rows] = await pool.query(GET_POSTS_QUERY);
+
+export async function getPosts(userId) {
+  const [rows] = await pool.query(GET_POSTS_QUERY, [userId]);
   return rows;
 }
+
 
 // 게시글 작성
 export async function createPost(userId, title, main_text) {
@@ -23,8 +24,8 @@ export async function createPost(userId, title, main_text) {
 }
 
 // 게시글 조회
-export async function getPost(postId) {
-  const [rows] = await pool.query(GET_POST_QUERY, [postId]);
+export async function getPost(postId, userId) {
+  const [rows] = await pool.query(GET_POST_QUERY, [userId, postId]);
   return rows[0];
 }
 

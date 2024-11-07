@@ -4,7 +4,7 @@ import { getPostDTO, writePostDTO, CommentDTO, LikeResponseDTO } from './communi
 
 // 게시글 리스트 조회
 export async function listPosts(userId) {
-  const posts = await communityModel.getPosts();
+  const posts = await communityModel.getPosts(userId);
   return posts.map(post => new getPostDTO(post)); // getPostDTO 사용
 }
 
@@ -17,9 +17,10 @@ export async function createPost({ title, main_text }, userId) {
 
 // 게시글 조회
 export async function getPost(postId, userId) {
-  const post = await communityModel.getPost(postId);
+  const post = await communityModel.getPost(postId, userId);
   return new getPostDTO(post); // getPostDTO 사용
 }
+
 
 // 댓글 작성
 export async function createComment(postId, { text }, userId) {
