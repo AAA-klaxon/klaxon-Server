@@ -10,13 +10,13 @@
 
 
 ## 🤗 Team member
-|                                   Jaeeun Oak<br/>([@Jaen-923](https://github.com/jaen-923))                                    |                                      Yeeun Pyo<br/>([@yeuuni](https://github.com/yeuuni))                                       |                                      Seoyoung Shin<br/>([@member3](https://github.com/member3))                                       |                                      Minkyung Park<br/>([@member4](https://github.com/member4))                                       |
-|:---------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|
-| <img width="200px" src="https://avatars.githubusercontent.com/u/113357550?v=4"/> | <img width="200px" src="https://avatars.githubusercontent.com/u/142524724?v=4"/> | <img width="200px" src="https://avatars.githubusercontent.com/u/placeholder1?v=4"/> | <img width="200px" src="https://avatars.githubusercontent.com/u/placeholder2?v=4"/> |
-|                                                      `FE, BE, AI`<br/>                                                     |                                               `PM, BE, FE`                                              |                                               `Design, FE, AI`                                              |                                               `Raspi, AI`                                              |
-
+|                                   Jaeeun Oak<br/>([@Jaen-923](https://github.com/jaen-923))                                    |                                      Yeeun Pyo<br/>([@yeuuni](https://github.com/yeuuni))                                       |
+|:---------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|
+| <img width="200px" src="https://avatars.githubusercontent.com/u/113357550?v=4"/> | <img width="200px" src="https://avatars.githubusercontent.com/u/142524724?v=4"/> |
+|                                                      `FE, BE, AI`<br/>                                                     |                                               `PM, BE, FE`                                              |
 
 <br>
+
 ## ⚙️ Architecture
 
 
